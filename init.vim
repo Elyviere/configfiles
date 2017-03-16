@@ -36,7 +36,6 @@ colorscheme gruvbox
 
 nmap <S-Enter> O<Esc>j
 nmap <CR> o<Esc>k
-tnoremap <Esc> <C-\><C-n>
 tnoremap <C-[> <C-\><C-n>
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
 map <C-n> :NERDTreeToggle<CR>
