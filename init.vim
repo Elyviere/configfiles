@@ -26,6 +26,7 @@ set scrolloff=5
 set ignorecase
 set smartcase
 set autoindent
+set tw=80 "Text width, probably only want this for code, should be looked at further
 set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4 "Tabs
 "set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab "2 spaces
 syntax on
