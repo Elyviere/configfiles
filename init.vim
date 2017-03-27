@@ -26,6 +26,8 @@ set scrolloff=5
 set ignorecase
 set smartcase
 set autoindent
+set splitbelow
+set splitright
 set tw=80 "Text width, probably only want this for code, should be looked at further
 set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4 "Tabs
 "set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab "2 spaces
@@ -35,9 +37,17 @@ let mapleader=" "
 
 colorscheme gruvbox
 
-nmap <S-Enter> O<Esc>j
+nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>k
-tnoremap <C-[> <C-\><C-n>
+"tnoremap <C-\> <C-\><C-n>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
 map <C-n> :NERDTreeToggle<CR>
 
@@ -78,4 +88,4 @@ let g:clang_complete_auto = 0
 let g:clang_auto_select = 0
 let g:clang_omnicppcomplete_compliance = 0
 let g:clang_make_default_keymappings = 0
-"let g:clang_use_library = 1
+let g:clang_use_library = 1
