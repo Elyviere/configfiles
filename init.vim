@@ -48,11 +48,11 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-noremap <leader>c :noh<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
+map <leader>c :noh<CR>
+map <leader>n :NERDTreeToggle<CR>
 " Toggle between normal and relative numbering.
-nnoremap <leader>r :call NumberToggle()<CR>
-nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
+map <leader>r :call NumberToggle()<CR>
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
 noremap <F3> :Autoformat<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
