@@ -48,8 +48,12 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
-map <C-n> :NERDTreeToggle<CR>
+noremap <leader>c :noh<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
+" Toggle between normal and relative numbering.
+nnoremap <leader>r :call NumberToggle()<CR>
+nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
+noremap <F3> :Autoformat<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -76,9 +80,6 @@ function! NumberToggle()
   endif
 endfunc
 
-" Toggle between normal and relative numbering.
-nnoremap <leader>r :call NumberToggle()<cn>
-noremap <F3> :Autoformat<CR>
 "let g:python_host_prog = '/usr/bin/python'
 "let g:python3_host_prog = '/usr/bin/python3'
 let g:autoformat_autoindent = 0
