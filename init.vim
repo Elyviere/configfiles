@@ -54,6 +54,10 @@ map <leader>n :NERDTreeToggle<CR>
 map <leader>r :call NumberToggle()<CR>
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
 noremap <F3> :Autoformat<CR>
+map <leader>cc :botright cope<cr>
+map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -90,3 +94,13 @@ let g:clang_auto_select = 0
 let g:clang_omnicppcomplete_compliance = 0
 let g:clang_make_default_keymappings = 0
 let g:clang_use_library = 1
+
+if has('persistent_undo')
+	let nvimDir = '$HOME/.config/nvim'
+    let nvimUndoDir = expand(nvimDir . '/undodir')
+    " Create dirs
+    call system('mkdir ' . nvimDir)
+    call system('mkdir ' . nvimUndoDir)
+    let &undodir = nvimUndoDir
+    set undofile
+endif
