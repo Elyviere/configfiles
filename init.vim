@@ -56,7 +56,7 @@ map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 noremap <F3> :Autoformat<CR>
 map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
+map <C-n> :cn<cr>
 map <leader>p :cp<cr>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
