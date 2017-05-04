@@ -49,15 +49,16 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 map <leader>c :noh<CR>
-map <leader>n :NERDTreeToggle<CR>
+noremap <C-n> :NERDTreeToggle<CR>
 " Toggle between normal and relative numbering.
 map <leader>r :call NumberToggle()<CR>
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR> 
 noremap <F3> :Autoformat<CR>
 map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <C-n> :cn<cr>
+map <leader>n :cn<cr>
 map <leader>p :cp<cr>
+map <leader>m :make<cr>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -104,3 +105,14 @@ if has('persistent_undo')
     let &undodir = nvimUndoDir
     set undofile
 endif
+
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
