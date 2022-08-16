@@ -17,7 +17,7 @@ export AXIS_RESUME=y
 ## Show hidden files ##
 alias l.='ls -d .* --color=auto'
 
-source ~/.grml_zshrc
+source ~/.config/configfiles/.grml_zshrc
 # source ~/bin/oe-setup/oe-setup.sh
 
 function _accept-line() {
