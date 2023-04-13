@@ -1,0 +1,11 @@
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+inoremap <C-2> <C-c> " Leaves insert mode with ctrl+[
+inoremap <C-v> '<C-c>\"+po
+
+set ideajoin " Lets IntelliJ join lines (shift + J) intelligently, e.g. for strings
+set ideamarks " Syncs IntelliJ and vim marks
+set NERDTree " Allows vim navigation in project files
+let g:NerdTreeMapActiveNode='l'
+let g:NerdTreeMapJumpParent='h'
