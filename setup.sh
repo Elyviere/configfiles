@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #mkdir ~/.config
-#git clone https://github.com/Elyviere/configfiles.git ~/
+#git clone https://github.com/Elyviere/configfiles.git ~/.config/
 #chmod u+x ~/.config/setup.sh
 #sh ~/.config/setup.sh
 
