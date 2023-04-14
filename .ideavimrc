@@ -1,8 +1,8 @@
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround' " Allows use of the s motion, such as ds' to delete surrounding ' marks
 Plug 'tpope/vim-commentary'
 
 inoremap <C-2> <C-c> " Leaves insert mode with ctrl+[
-inoremap <C-v> '<C-c>\"+po
+inoremap <C-v> '<C-c>\"+po " Pastes from clipboard surrounded by '
 
 set ideajoin " Lets IntelliJ join lines (shift + J) intelligently, e.g. for strings
 set ideamarks " Syncs IntelliJ and vim marks
