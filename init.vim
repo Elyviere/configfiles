@@ -25,6 +25,11 @@ Plug 'Chiel92/vim-autoformat'
 
 Plug 'chrisbra/improvedft'
 
+Plug 'lambdalisue/suda.vim'
+
+" Allows use of substituting from register. Requires config, see github.
+Plug 'svermeulen/vim-subversive' 
+
 "Plug 'Rip-Rip/clang_complete'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -46,6 +51,19 @@ set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4 "Tabs
 syntax on
 
 let mapleader=" "
+
+"let g:clipboard = {
+"			\	'name': 'WslClipboard',
+"			\	'copy': {
+"			\		'+': 'clip.exe',
+"			\		'*': 'clip.exe',
+"			\	},
+"			\	'paste': {
+"			\		'+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard-Raw).tostring().replace("`r", ""))',
+"			\		'*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard-Raw).tostring().replace("`r", ""))',
+"			\ 	},
+"			\	'cache_enabled': 0,
+"			\ }
 
 colorscheme gruvbox
 
@@ -71,6 +89,8 @@ map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 map <leader>m :make<cr>
+cnoremap w!! SudaWrite
+nmap cp <plug>(SubversiveSubstitute)| " Replace <motion> (following cp) with register content
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -128,3 +148,4 @@ endif
 " seem to happen.
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
