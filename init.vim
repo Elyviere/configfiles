@@ -30,6 +30,10 @@ Plug 'lambdalisue/suda.vim'
 " Allows use of substituting from register. Requires config, see github.
 Plug 'svermeulen/vim-subversive' 
 
+" Adds 'surround' commands, e.g. ds( to delete surrounding (), or ysw) to add ()
+" around the word (without spaces)
+Plug 'tpope/vim-surround'
+
 "Plug 'Rip-Rip/clang_complete'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
