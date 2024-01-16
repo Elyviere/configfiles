@@ -11,12 +11,15 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 
 
 call plug#begin('~/.local/share/nvim/plugged')
+" Gruvbox theme for Vim
 Plug 'morhetz/gruvbox'
 
+" File explorer inside vim, accessed via :NERDTree
 Plug 'scrooloose/nerdtree'
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" Adds various :Git commands, replacing and improving !git from inside vim
 Plug 'tpope/vim-fugitive'
 
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -36,6 +39,11 @@ Plug 'tpope/vim-surround'
 
 "Plug 'Rip-Rip/clang_complete'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Adds %Subvert to do substitution without changing case, and can even handle
+" plural :%Subvert/facilit{y,ies}/building{,s}/g
+" Also adds coerce(change)-to-case commands, crs crc cru cr- cr.
+Plug 'tpope/vim-abolish'
 
 call plug#end()
 
