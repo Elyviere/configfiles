@@ -43,5 +43,6 @@ sudo make install
 cd -
 
 # Open neovim and make sure everything works
+git config --global core.editor "nvim"
 nvim
 # Do :checkhealth once everything is installed
