@@ -1,11 +1,302 @@
-Plug 'tpope/vim-surround' " Allows use of the s motion, such as ds' to delete surrounding ' marks
-Plug 'tpope/vim-commentary'
+" -- Use WSL bash as shell --
+if has('win32')
+  set shell=bash.exe
+  set shellcmdflag=-lic
+  set shellxquote=
+endif
 
-inoremap <C-2> <C-c> " Leaves insert mode with ctrl+[
-inoremap <C-v> '<C-c>\"+po " Pastes from clipboard surrounded by '
+" -- Configure IDE keybindings (https://github.com/JetBrains/ideavim/wiki/sethandler) --
+sethandler <C-N> a:ide
+sethandler <C-P> a:ide
+sethandler <C-Q> a:ide
 
+sethandler <C-A> a:vim
+sethandler <C-B> a:vim
+sethandler <C-C> a:vim
+sethandler <C-D> a:vim
+sethandler <C-E> a:vim
+sethandler <C-F> a:vim
+sethandler <C-G> a:vim
+sethandler <C-H> a:vim
+sethandler <C-I> a:vim
+sethandler <C-J> a:vim
+sethandler <C-K> a:vim
+sethandler <C-L> a:vim
+sethandler <C-M> a:vim
+sethandler <C-O> a:vim
+sethandler <C-R> a:vim
+sethandler <C-S> a:vim
+sethandler <C-T> a:vim
+sethandler <C-V> a:vim
+sethandler <C-W> a:vim
+sethandler <C-X> a:vim
+sethandler <C-Y> a:vim
+sethandler <C-<tab>> a:vim
+sethandler <C-\> a:vim
+sethandler <A-j> a:vim
+sethandler <A-k> a:vim
+
+
+" -- Enable plugins (https://github.com/JetBrains/ideavim/wiki/IdeaVim-Plugins) --
+Plug 'tpope/vim-surround' " Allows use of the s motion, such as ds' to delete surrounding ' marks or ys[motion]' to add
+Plug 'tpope/vim-commentary' " Adds gc{motion} to toggle comments, gcc for lines
+let g:WhichKeyDesc_comment = "gc comment"
+Plug 'preservim/nerdtree' " Adds :NERDTree command to access file tree
+Plug 'vim-scripts/ReplaceWithRegister' " Adds gr{motion}, replacing text with content in register. grr replaces entire lines.
+Plug 'vim-scripts/argtextobj.vim' " Adds arguments as motions, e.g. daa delete-an-argument
+Plug 'tommcdo/vim-exchange' " Allows swapping two {motion}s by running the command cx{motion} twice
+Plug 'machakann/vim-highlightedyank' " Highlights the yanked area
+Plug 'terryma/vim-multiple-cursors' " <C-n> to add a cursor, <C-n> to add cursor at next identical character, <C-x> to skip next, <A-n> to start editing
+Plug 'dbakker/vim-paragraph-motion' " Makes { and } also match lines containing only whitespace
 set ideajoin " Lets IntelliJ join lines (shift + J) intelligently, e.g. for strings
 set ideamarks " Syncs IntelliJ and vim marks
-set NERDTree " Allows vim navigation in project files
-let g:NerdTreeMapActiveNode='l'
-let g:NerdTreeMapJumpParent='h'
+set which-key " Shows available continuation keys after pressing a key
+let g:WhichKey_ShowVimActions = "true"
+set notimeout " Makes which-key not timeout
+set scrolloff=5 " Show a few lines of context around the cursor
+set incsearch " Do incremental searching.
+
+
+" -- Personal key binds --
+" | is necessary after commands to allow for comments on the same line
+imap <C-v> <C-r>+| " Pastes from clipboard
+map Y y$
+nmap <Home> ^
+imap <silent> <Home> <C-O>^
+map <leader>cr <Action>(ReformatCode)
+map \b <Action>(ToggleLineBreakpoint)
+
+" -- IntelliJ actions --
+let g:WhichKeyDesc_intellij = "<leader>i +IntelliJ"
+map <leader>iv <Action>(IdeaVim.ReloadVimRc.reload)
+let g:WhichKeyDesc_intellij_reloadvimrc = "<leader>iv Reload VimRC"
+map <leader>iD <Action>(Debug)
+let g:WhichKeyDesc_intellij_debug = "<leader>iD Start debug mode"
+map <leader>ic <Action>(ActivateCommitToolWindow)
+let g:WhichKeyDesc_intellij_commitwindow = "<leader>ic Show commit window"
+map <leader>id <Action>(ActivateDatabaseToolWindow)
+let g:WhichKeyDesc_intellij_databasewindow = "<leader>id Show database window"
+map <leader>ig <Action>(ActivateMergeRequestsToolWindow)
+let g:WhichKeyDesc_intellij_gitlabwindow = "<leader>ig Show gitlab window"
+map <leader>ir <Action>(ActivateRunToolWindow)
+let g:WhichKeyDesc_intellij_runwindow = "<leader>ir Show run window"
+map <leader>is <Action>(ActivateServicesToolWindow)
+let g:WhichKeyDesc_intellij_serviceswindow = "<leader>is Show services window"
+map <leader>ih <Action>(HideActiveWindow)
+let g:WhichKeyDesc_intellij_hidewindow = "<leader>ih Hide all windows"
+map <leader>iH <Action>(HideAllWindows)
+let g:WhichKeyDesc_intellij_hideallwindows = "<leader>iH Hide all windows"
+" -- Debug mode --
+let g:WhichKeyDesc_debug = "<leader>d +debug"
+map <leader>dr <Action>(Resume)
+let g:WhichKeyDesc_debug_resume = "<leader>dr Resume"
+map <leader>ds <Action>(StepOver)
+let g:WhichKeyDesc_debug_step = "<leader>ds Step Over"
+map <leader>di <Action>(StepInto)
+let g:WhichKeyDesc_debug_into = "<leader>di Step Into"
+map <leader>db <Action>(ViewBreakpoints)
+let g:WhichKeyDesc_debug_view = "<leader>db View Breakpoints"
+map <leader>dm <Action>(XDebugger.MuteBreakpoints) " Not working
+let g:WhichKeyDesc_debug_mute = "<leader>dm Mute Breakpoints"
+
+" -- LazyVim which-key directories --
+let g:WhichKeyDesc_tab = "<leader><Tab> +tabs"
+let g:WhichKeyDesc_buffer = "<leader>b +buffer"
+let g:WhichKeyDesc_code = "<leader>c +code"
+let g:WhichKeyDesc_file = "<leader>f +file/find"
+let g:WhichKeyDesc_git = "<leader>g +git"
+let g:WhichKeyDesc_quit = "<leader>q +quit/session"
+let g:WhichKeyDesc_search = "<leader>s +search"
+let g:WhichKeyDesc_ui = "<leader>u +ui"
+let g:WhichKeyDesc_windows = "<leader>w +windows"
+let g:WhichKeyDesc_diagnostics = "<leader>x +diagnostics"
+
+" -- LazyVim keybinds --
+let mapleader = " "
+nmap <leader><space> <Action>(FindInPath)
+vmap <leader><space> <Action>(FindInPath)
+let g:WhichKeyDesc_find = "<leader><Space> Find Files (root dir)"
+nmap <leader>ff <Action>(FindInPath)
+vmap <leader>ff <Action>(FindInPath)
+let g:WhichKeyDesc_find_search = "<leader>ff Find Files (root dir)"
+
+map <c-d> <Action>(GotoDeclaration)
+
+" better up/down -- TODO make v:count work
+" nmap j v:count == 0 ? 'gj' : 'j'
+" xmap j v:count == 0 ? 'gj' : 'j'
+" nmap <Down> v:count == 0 ? 'gj' : 'j'
+" xmap <Down> v:count == 0 ? 'gj' : 'j'
+" nmap k v:count == 0 ? 'gk' : 'k'
+" xmap k v:count == 0 ? 'gk' : 'k'
+" nmap <Up> v:count == 0 ? 'gk' : 'k'
+" xmap <Up> v:count == 0 ? 'gk' : 'k'
+
+nmap <leader>fe <Action>(ActivateProjectToolWindow)
+let g:WhichKeyDesc_file_explorer = "<leader>fe Explorer NeoTree (root dir)"
+
+" Move to window using the <ctrl> hjkl keys
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" Resize window using <ctrl> arrow keys
+nmap <C-Down> <Action>(StretchSplitToBottom)
+nmap <C-Left> <Action>(StretchSplitToLeft)
+nmap <C-Right> <Action>(StretchSplitToRight)
+nmap <C-Up> <Action>(StretchSplitToTop)
+
+" Move Lines
+nmap <A-j> <Action>(MoveLineDown)
+nmap <A-k> <Action>(MoveLineUp)
+imap <A-j> <Action>(MoveLineDown)
+imap <A-k> <Action>(MoveLineUp)
+vmap <A-j> <Action>(MoveLineDown)
+vmap <A-k> <Action>(MoveLineUp)
+
+" buffers
+nmap <S-h> :bprevious<cr>
+nmap <S-l> :bnext<cr>
+nmap [b :bprevious<cr>
+let g:WhichKeyDesc_prevbuffer = "[b Prev buffer"
+nmap ]b :bnext<cr>
+let g:WhichKeyDesc_nextbuffer = "]b Next buffer"
+nmap <leader>bb :e #<cr>
+let g:WhichKeyDesc_buffer_switch = "<leader>bb Switch to other buffer"
+nmap <leader>` :e #<cr>
+let g:WhichKeyDesc_switchbuffer = "<leader>` Switch to other buffer"
+
+" Clear search with <esc> -- TODO Unreliable
+" nmap <esc> :noh<cr><esc>
+" imap <esc> :noh<cr><esc>
+
+" Clear search, diff update and redraw
+" taken from runtime/lua/_editor.lua
+nmap <leader>ur :nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
+
+" https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n -- TODO [v:searchforward] doesn't work
+" :nohnmap n 'Nn'[v:searchforward].'zv'
+" :nohxmap n 'Nn'[v:searchforward]
+" :nohomap n 'Nn'[v:searchforward]
+" :nohnmap N 'nN'[v:searchforward].'zv'
+" :nohxmap N 'nN'[v:searchforward]
+" :nohomap N 'nN'[v:searchforward]
+
+" Add undo break-points -- TODO <c-g>u doesn't do anything
+" imap , ,<c-g>u
+" imap . .<c-g>u
+" imap ; ;<c-g>u
+
+" keywordprg
+nmap <leader>K <Action>(QuickJavaDoc)
+let g:WhichKeyDesc_keywordprg = "<leader>K Keywordprg"
+nmap <leader>k <Action>(QuickImplementations)
+let g:WhichKeyDesc_keywordprg = "<leader>k Implementation pop-up"
+
+" better indenting
+vmap < <gv
+vmap > >gv
+
+" new file
+nmap <leader>fn <Action>(NewFile)
+let g:WhichKeyDesc_file_new = "<leader>fn New File"
+
+" Not sure how to implement these
+" nmap <leader>xl :lopen<cr>
+" nmap <leader>xq :copen<cr>
+
+nmap [q <Action>(GotoNextError)
+nmap ]q <Action>(GotoPreviousError)
+
+" formatting -- TODO, how to function?
+" map({ "n", "v" }, "<leader>cf", function()
+"  Util.format({ force = true })
+" end, { desc = "Format" })
+
+" diagnostic -- TODO, how to function?
+" local diagnostic_goto = function(next, severity)
+"   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+"   severity = severity and vim.diagnostic.severity[severity] or nil
+"   return function()
+"     go({ severity = severity })
+"   end
+" end
+" map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+" map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+" map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+" map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+" map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+" map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+" map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+" toggle options -- TODO how to function?
+" map("n", "<leader>uf", function() Util.format.toggle() end, { desc = "Toggle auto format (global)" })
+" map("n", "<leader>uF", function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" })
+" map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
+" map("n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" })
+" map("n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" })
+" map("n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" })
+" map("n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
+" local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+" map("n", "<leader>uc", function() Util.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+" if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
+"   map( "n", "<leader>uh", function() Util.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
+" end
+" map("n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" })
+" map("n", "<leader>ub", function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
+
+" lazygit -- TODO how to function?
+" map("n", "<leader>gg", function() Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })
+" map("n", "<leader>gG", function() Util.terminal({ "lazygit" }, {esc_esc = false, ctrl_hjkl = false}) end, { desc = "Lazygit (cwd)" })
+
+" quit
+nmap <leader>qq :qa<cr>
+
+" highlights under cursor -- TODO How to implement this
+" nmap <leader>ui vim.show_pos
+
+" floating terminal -- TODO how to function?
+" local lazyterm = function() Util.terminal(nil, { cwd = Util.root() }) end
+" map("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
+nmap <leader>ft <Action>(ActivateTerminalToolWindow)
+let g:WhichKeyDesc_file_terminal = "<leader>fl Open terminal"
+" map("n", "<leader>fT", function() Util.terminal() end, { desc = "Terminal (cwd)" })
+" map("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
+" map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+
+" Terminal Mappings -- TODO These don't appear to do anything in the terminal
+" tmap <esc><esc> <c-\\><c-n>
+" tmap <C-h> :wincmd h<cr>
+" tmap <C-j> :wincmd j<cr>
+" tmap <C-k> :wincmd k<cr>
+" tmap <C-l> :wincmd l<cr>
+" tmap <C-/> :close<cr>
+" tmap <c-_> :close<cr>
+
+" windows
+nmap <leader>ww <C-W>p
+let g:WhichKeyDesc_window_other = "<leader>ww Other window"
+nmap <leader>wd <C-W>c
+let g:WhichKeyDesc_window_close = "<leader>wd Delete window"
+nmap <leader>w- <C-W>s
+let g:WhichKeyDesc_window_splitbelow = "<leader>w- Split window below"
+nmap <leader>w\| <C-W>v
+let g:WhichKeyDesc_window_splitright = "<leader>w| Split window right"
+nmap <leader>- <C-W>s
+let g:WhichKeyDesc_splitbelow = "<leader>- Split window below"
+nmap <leader>\| <C-W>v
+let g:WhichKeyDesc_splitright = "<leader>w| Split window right"
+
+" tabs
+nmap <leader><tab>l <Action>(GoToLastTab)
+let g:WhichKeyDesc_tab_last = "<leader><Tab>l Last Tab"
+nmap <leader><tab>f <Action>(GoToFirstTab)
+let g:WhichKeyDesc_tab_first = "<leader><Tab>f First Tab"
+" nmap <leader><tab><tab> :tabnew<cr> " Not sure how to do this one
+nmap <leader><tab>] <Action>(NextTab)
+let g:WhichKeyDesc_tab_next = "<leader><Tab>] Next Tab"
+nmap <leader><tab>d <Action>(CloseContent)
+let g:WhichKeyDesc_tab_close = "<leader><Tab>d Close Tab"
+nmap <leader><tab>[ <Action>(PreviousTab)
+let g:WhichKeyDesc_tab_previous = "<leader><Tab>[ Previous Tab"
