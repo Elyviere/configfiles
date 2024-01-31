@@ -55,6 +55,7 @@ let g:WhichKey_ShowVimActions = "true"
 set notimeout " Makes which-key not timeout
 set scrolloff=5 " Show a few lines of context around the cursor
 set incsearch " Do incremental searching.
+set relativenumber " Relative line numbering
 
 
 " -- Personal key binds --
