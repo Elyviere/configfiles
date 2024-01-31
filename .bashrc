@@ -124,3 +124,5 @@ if [ -z "$RUNNING" ]; then
 fi
 
 export PATH=$PATH:/home/elyviere/.local/bin
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

@@ -28,11 +28,19 @@ sudo apt update
 sudo apt install gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential
 
 # Install Linuxbrew for ripgrep and lazygit
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-(
-	echo
-	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-) >>/home/elyviere/.bashrc
+which brew
+if [[ $? != 0 ]]; then
+	echo 'Linuxbrew not installed, installing now'
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	(
+		echo
+		echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+	) >>/home/elyviere/.bashrc
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+	sudo apt install build-essential
+else
+	echo 'Linuxbrew already installed, skipping installation'
+fi
 brew install ripgrep lazygit
 
 # Build & Install latest stable neovim
