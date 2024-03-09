@@ -33,22 +33,16 @@ which brew
 if [[ $? != 0 ]]; then
 	echo 'Linuxbrew not installed, installing now'
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	(
-		echo
-		echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-	) >>/home/elyviere/.bashrc
+	# The following lines shouldn't be needed, as the line should already be present in .bashrc
+	# (
+	# 	echo
+	# 	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+	# ) >>/home/elyviere/.bashrc
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 	sudo apt install build-essential
 else
 	echo 'Linuxbrew already installed, skipping installation'
 fi
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# The following lines shouldn't be needed, as the line should already be present in .bashrc
-# (
-# 	echo
-# 	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-# ) >>/home/elyviere/.bashrc
 brew install ripgrep lazygit
 
 # Build & Install latest stable neovim

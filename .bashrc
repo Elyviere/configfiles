@@ -123,7 +123,7 @@ if [ -z "$RUNNING" ]; then
 	disown
 fi
 
-export PATH=$PATH:/home/elyviere/.local/bin
+export PATH=$PATH:~/.local/bin
 
 # Adds `brew` command to terminal
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
