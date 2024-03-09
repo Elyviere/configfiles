@@ -125,4 +125,5 @@ fi
 
 export PATH=$PATH:/home/elyviere/.local/bin
 
+# Adds `brew` command to terminal
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

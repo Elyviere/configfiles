@@ -18,6 +18,7 @@
 # sh ~/.config/configfiles/setup.sh
 
 ln -s ~/.config/configfiles/nvim/ ~/.config/
+mv ~/.bashrc ~/.bashrc.old
 ln -s ~/.config/configfiles/.bashrc ~/.bashrc
 ln -s ~/.config/configfiles/.zshrc ~/.zshrc
 ln -s ~/.config/configfiles/.astylerc ~/.astylerc
@@ -41,6 +42,13 @@ if [[ $? != 0 ]]; then
 else
 	echo 'Linuxbrew already installed, skipping installation'
 fi
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# The following lines shouldn't be needed, as the line should already be present in .bashrc
+# (
+# 	echo
+# 	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+# ) >>/home/elyviere/.bashrc
 brew install ripgrep lazygit
 
 # Build & Install latest stable neovim
