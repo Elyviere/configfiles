@@ -32,6 +32,7 @@ sethandler <C-W> a:vim
 sethandler <C-X> a:vim
 sethandler <C-Y> a:vim
 sethandler <C-<tab>> a:vim
+sethandler <C-/> a:vim
 sethandler <C-\> a:vim
 sethandler <A-j> a:vim
 sethandler <A-k> a:vim
@@ -56,6 +57,7 @@ set notimeout " Makes which-key not timeout
 set scrolloff=5 " Show a few lines of context around the cursor
 set incsearch " Do incremental searching.
 set relativenumber " Relative line numbering
+set number " Show line number on cursor
 
 
 " -- Personal key binds --
@@ -64,8 +66,15 @@ imap <C-v> <C-r>+| " Pastes from clipboard
 map Y y$
 nmap <Home> ^
 imap <silent> <Home> <C-O>^
-map <leader>cr <Action>(ReformatCode)
 map \b <Action>(ToggleLineBreakpoint)
+map <leader>gb <Action>(Annotate)
+let g:WhichKeyDesc_git_blame = "<leader>gb Blame"
+map <leader>ci <Action>(OptimizeImports)
+let g:WhichKeyDesc_code_imports = "<leader>ci Optimise Imports"
+map <leader>cs <Action>(EditorSortLines)
+let g:WhichKeyDesc_code_sort = "<leader>cs Sort selected lines"
+map <leader>v <Action>(IdeaVim.ReloadVimRc.reload)
+let g:WhichKeyDesc_reloadvimrc = "<leader>v Reload VimRC"
 
 " -- IntelliJ actions --
 let g:WhichKeyDesc_intellij = "<leader>i +IntelliJ"
@@ -114,27 +123,123 @@ let g:WhichKeyDesc_diagnostics = "<leader>x +diagnostics"
 
 " -- LazyVim keybinds --
 let mapleader = " "
-nmap <leader><space> <Action>(FindInPath)
-vmap <leader><space> <Action>(FindInPath)
+
+" - Tab
+nmap <leader><tab>[ <Action>(PreviousTab)
+let g:WhichKeyDesc_tab_previous = "<leader><Tab>[ Previous Tab"
+nmap <leader><tab>] <Action>(NextTab)
+let g:WhichKeyDesc_tab_next = "<leader><Tab>] Next Tab"
+" nmap <leader><tab><tab> :tabnew<cr> " Not sure how to do this one
+" let g:WhichKeyDesc_tab_new = "<leader><Tab><Tab> New Tab"
+nmap <leader><tab>d <Action>(CloseContent)
+let g:WhichKeyDesc_tab_close = "<leader><Tab>d Close Tab"
+nmap <leader><tab>f <Action>(GoToTab1)
+let g:WhichKeyDesc_tab_first = "<leader><Tab>f First Tab"
+nmap <leader><tab>l <Action>(GoToLastTab)
+let g:WhichKeyDesc_tab_last = "<leader><Tab>l Last Tab"
+
+" - Buffer
+nmap <S-h> :bprevious<cr>
+nmap <S-l> :bnext<cr>
+nmap [b :bprevious<cr>
+let g:WhichKeyDesc_prevbuffer = "[b Prev buffer"
+nmap ]b :bnext<cr>
+let g:WhichKeyDesc_nextbuffer = "]b Next buffer"
+nmap <leader>` :e #<cr>
+let g:WhichKeyDesc_switchbuffer = "<leader>` Switch to other buffer"
+
+nmap <leader>bb :e #<cr>
+let g:WhichKeyDesc_buffer_switch = "<leader>bb Switch to other buffer"
+" nmap <leader>bd TODO
+" let g:WhichKeyDesc_buffer_delete = "<leader>bd Delete Buffer"
+" nmap <leader>bD TODO
+" let g:WhichKeyDesc_buffer_deleteforce = "<leader>bd Delete Buffer (Force)"
+" nmap <leader>be TODO
+" let g:WhichKeyDesc_buffer_explorer = "<leader>be Buffer explorer"
+nmap <leader>bl <Action>(CloseAllToTheLeft)
+let g:WhichKeyDesc_buffer_closeleft = "<leader>bl Delete buffers to the left"
+nmap <leader>bo <Action>(CloseAllEditorsButActive)
+let g:WhichKeyDesc_buffer_closeothers = "<leader>bo Delete other buffers"
+nmap <leader>bp <Action>(PinActiveEditorTab)
+let g:WhichKeyDesc_buffer_pin = "<leader>bp Toggle pin"
+nmap <leader>bP <Action>(CloseAllUnpinnedEditors)
+let g:WhichKeyDesc_buffer_closeunpinned = "<leader>bP Delete non-pinned buffers"
+nmap <leader>br <Action>(CloseAllToTheRight)
+let g:WhichKeyDesc_buffer_closeright = "<leader>br Delete buffers to the right"
+
+" - Code
+map <leader>cr <Action>(RenameElement)
+let g:WhichKeyDesc_code_rename = "<leader>cr Rename"
+map <leader>cf <Action>(ReformatCode)
+let g:WhichKeyDesc_code_format = "<leader>cf Format"
+" TODO Add others
+
+" - File/Find
+nmap <leader><space> <Action>(GotoFile)
+vmap <leader><space> <Action>(GotoFile)
 let g:WhichKeyDesc_find = "<leader><Space> Find Files (root dir)"
-nmap <leader>ff <Action>(FindInPath)
-vmap <leader>ff <Action>(FindInPath)
-let g:WhichKeyDesc_find_search = "<leader>ff Find Files (root dir)"
-
-map <c-d> <Action>(GotoDeclaration)
-
-" better up/down -- TODO make v:count work
-" nmap j v:count == 0 ? 'gj' : 'j'
-" xmap j v:count == 0 ? 'gj' : 'j'
-" nmap <Down> v:count == 0 ? 'gj' : 'j'
-" xmap <Down> v:count == 0 ? 'gj' : 'j'
-" nmap k v:count == 0 ? 'gk' : 'k'
-" xmap k v:count == 0 ? 'gk' : 'k'
-" nmap <Up> v:count == 0 ? 'gk' : 'k'
-" xmap <Up> v:count == 0 ? 'gk' : 'k'
-
 nmap <leader>fe <Action>(ActivateProjectToolWindow)
 let g:WhichKeyDesc_file_explorer = "<leader>fe Explorer NeoTree (root dir)"
+nmap <leader>ff <Action>(GotoFile)
+vmap <leader>ff <Action>(GotoFile)
+let g:WhichKeyDesc_find_search = "<leader>ff Find Files (root dir)"
+nmap <leader>ft <Action>(ActivateTerminalToolWindow)
+let g:WhichKeyDesc_file_terminal = "<leader>fl Open terminal"
+" TODO Add others
+
+" - Git
+" TODO Add others
+
+" - Quit/Session
+nmap <leader>qq :qa<cr>
+let g:WhichKeyDesc_quit_quitall = "<leader>qq Quit all"
+" TODO Add others
+
+" - Search
+nmap <leader>sg <Action>(FindInPath)
+let g:WhichKeyDesc_search_grep = "<leader>sg Grep (root dir)"
+" TODO Add others
+
+" - UI
+" TODO Add others
+
+" - Windows
+nmap <leader>ww <C-W>p
+let g:WhichKeyDesc_window_other = "<leader>ww Other window"
+nmap <leader>wd <C-W>c
+let g:WhichKeyDesc_window_close = "<leader>wd Delete window"
+nmap <leader>w- <C-W>s
+let g:WhichKeyDesc_window_splitbelow = "<leader>w- Split window below"
+nmap <leader>w\| <C-W>v
+let g:WhichKeyDesc_window_splitright = "<leader>w| Split window right"
+nmap <leader>- <C-W>s
+let g:WhichKeyDesc_splitbelow = "<leader>- Split window below"
+nmap <leader>\| <C-W>v
+let g:WhichKeyDesc_splitright = "<leader>| Split window right"
+" TODO Add others
+
+" - Diagnostics
+" TODO Add others
+
+" Folds
+map zc <Action>(CollapseRegion)
+let g:WhichKeyDesc_collapse = "zc Close fold under cursor"
+map zM <Action>(CollapseAllRegions)
+let g:WhichKeyDesc_collapseall = "zM Close all folds"
+map zo <Action>(ExpandRegion)
+let g:WhichKeyDesc_expand = "zo Open fold under cursor"
+map zR <Action>(ExpandAllRegions)
+let g:WhichKeyDesc_expandall = "zR Open all folds"
+" TODO Add others
+
+" Goto
+map gd <Action>(GotoDeclaration)
+let g:WhichKeyDesc_goto_definition = "gd Goto definition"
+map gI <Action>(GotoImplementation)
+let g:WhichKeyDesc_goto_implementation = "gd Goto implementation"
+map gD <Action>(GotoDeclaration)
+let g:WhichKeyDesc_goto_declaration = "gD Goto declaration"
+" TODO Add others
 
 " Move to window using the <ctrl> hjkl keys
 nmap <C-h> <C-w>h
@@ -156,21 +261,7 @@ imap <A-k> <Action>(MoveLineUp)
 vmap <A-j> <Action>(MoveLineDown)
 vmap <A-k> <Action>(MoveLineUp)
 
-" buffers
-nmap <S-h> :bprevious<cr>
-nmap <S-l> :bnext<cr>
-nmap [b :bprevious<cr>
-let g:WhichKeyDesc_prevbuffer = "[b Prev buffer"
-nmap ]b :bnext<cr>
-let g:WhichKeyDesc_nextbuffer = "]b Next buffer"
-nmap <leader>bb :e #<cr>
-let g:WhichKeyDesc_buffer_switch = "<leader>bb Switch to other buffer"
-nmap <leader>` :e #<cr>
-let g:WhichKeyDesc_switchbuffer = "<leader>` Switch to other buffer"
 
-" Clear search with <esc> -- TODO Unreliable
-" nmap <esc> :noh<cr><esc>
-" imap <esc> :noh<cr><esc>
 
 " Clear search, diff update and redraw
 " taken from runtime/lua/_editor.lua
@@ -184,16 +275,16 @@ nmap <leader>ur :nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
 " :nohxmap N 'nN'[v:searchforward]
 " :nohomap N 'nN'[v:searchforward]
 
-" Add undo break-points -- TODO <c-g>u doesn't do anything
+" Add undo break-points -- TODO <c-g>u doesn't do anything in IntelliJ
 " imap , ,<c-g>u
 " imap . .<c-g>u
 " imap ; ;<c-g>u
 
-" keywordprg
+" keywordprg - Not exactly, but closest I could come up with
 nmap <leader>K <Action>(QuickJavaDoc)
 let g:WhichKeyDesc_keywordprg = "<leader>K Keywordprg"
 nmap <leader>k <Action>(QuickImplementations)
-let g:WhichKeyDesc_keywordprg = "<leader>k Implementation pop-up"
+let g:WhichKeyDesc_implementationpopup = "<leader>k Implementation pop-up"
 
 " better indenting
 vmap < <gv
@@ -210,10 +301,6 @@ let g:WhichKeyDesc_file_new = "<leader>fn New File"
 nmap [q <Action>(GotoNextError)
 nmap ]q <Action>(GotoPreviousError)
 
-" formatting -- TODO, how to function?
-" map({ "n", "v" }, "<leader>cf", function()
-"  Util.format({ force = true })
-" end, { desc = "Format" })
 
 " diagnostic -- TODO, how to function?
 " local diagnostic_goto = function(next, severity)
@@ -231,7 +318,7 @@ nmap ]q <Action>(GotoPreviousError)
 " map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 " map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
-" toggle options -- TODO how to function?
+" toggle options -- Toggling is mostly not supported in IntelliJ
 " map("n", "<leader>uf", function() Util.format.toggle() end, { desc = "Toggle auto format (global)" })
 " map("n", "<leader>uF", function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" })
 " map("n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" })
@@ -247,12 +334,10 @@ nmap ]q <Action>(GotoPreviousError)
 " map("n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" })
 " map("n", "<leader>ub", function() Util.toggle("background", false, {"light", "dark"}) end, { desc = "Toggle Background" })
 
-" lazygit -- TODO how to function?
+" lazygit -- TODO This probably cannot be done in IntelliJ
 " map("n", "<leader>gg", function() Util.terminal({ "lazygit" }, { cwd = Util.root(), esc_esc = false, ctrl_hjkl = false }) end, { desc = "Lazygit (root dir)" })
 " map("n", "<leader>gG", function() Util.terminal({ "lazygit" }, {esc_esc = false, ctrl_hjkl = false}) end, { desc = "Lazygit (cwd)" })
 
-" quit
-nmap <leader>qq :qa<cr>
 
 " highlights under cursor -- TODO How to implement this
 " nmap <leader>ui vim.show_pos
@@ -260,11 +345,25 @@ nmap <leader>qq :qa<cr>
 " floating terminal -- TODO how to function?
 " local lazyterm = function() Util.terminal(nil, { cwd = Util.root() }) end
 " map("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
-nmap <leader>ft <Action>(ActivateTerminalToolWindow)
-let g:WhichKeyDesc_file_terminal = "<leader>fl Open terminal"
 " map("n", "<leader>fT", function() Util.terminal() end, { desc = "Terminal (cwd)" })
 " map("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
+nmap <c-/> <Action>(ActivateTerminalToolWindow)
 " map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+
+" TODOs
+" better up/down -- TODO make v:count work
+" nmap j v:count == 0 ? 'gj' : 'j'
+" xmap j v:count == 0 ? 'gj' : 'j'
+" nmap <Down> v:count == 0 ? 'gj' : 'j'
+" xmap <Down> v:count == 0 ? 'gj' : 'j'
+" nmap k v:count == 0 ? 'gk' : 'k'
+" xmap k v:count == 0 ? 'gk' : 'k'
+" nmap <Up> v:count == 0 ? 'gk' : 'k'
+" xmap <Up> v:count == 0 ? 'gk' : 'k'
+
+" Clear search with <esc> -- TODO Unreliable, and searches aren't highlighted anyway
+" nmap <esc> :noh<cr><esc>
+" imap <esc> :noh<cr><esc>
 
 " Terminal Mappings -- TODO These don't appear to do anything in the terminal
 " tmap <esc><esc> <c-\\><c-n>
@@ -274,30 +373,3 @@ let g:WhichKeyDesc_file_terminal = "<leader>fl Open terminal"
 " tmap <C-l> :wincmd l<cr>
 " tmap <C-/> :close<cr>
 " tmap <c-_> :close<cr>
-
-" windows
-nmap <leader>ww <C-W>p
-let g:WhichKeyDesc_window_other = "<leader>ww Other window"
-nmap <leader>wd <C-W>c
-let g:WhichKeyDesc_window_close = "<leader>wd Delete window"
-nmap <leader>w- <C-W>s
-let g:WhichKeyDesc_window_splitbelow = "<leader>w- Split window below"
-nmap <leader>w\| <C-W>v
-let g:WhichKeyDesc_window_splitright = "<leader>w| Split window right"
-nmap <leader>- <C-W>s
-let g:WhichKeyDesc_splitbelow = "<leader>- Split window below"
-nmap <leader>\| <C-W>v
-let g:WhichKeyDesc_splitright = "<leader>w| Split window right"
-
-" tabs
-nmap <leader><tab>l <Action>(GoToLastTab)
-let g:WhichKeyDesc_tab_last = "<leader><Tab>l Last Tab"
-nmap <leader><tab>f <Action>(GoToFirstTab)
-let g:WhichKeyDesc_tab_first = "<leader><Tab>f First Tab"
-" nmap <leader><tab><tab> :tabnew<cr> " Not sure how to do this one
-nmap <leader><tab>] <Action>(NextTab)
-let g:WhichKeyDesc_tab_next = "<leader><Tab>] Next Tab"
-nmap <leader><tab>d <Action>(CloseContent)
-let g:WhichKeyDesc_tab_close = "<leader><Tab>d Close Tab"
-nmap <leader><tab>[ <Action>(PreviousTab)
-let g:WhichKeyDesc_tab_previous = "<leader><Tab>[ Previous Tab"
