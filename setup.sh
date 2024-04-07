@@ -16,17 +16,22 @@
 # git clone git@github.com:Elyviere/configfiles.git ~/.config/configfiles
 # chmod u+x ~/.config/configfiles/setup.sh
 # sh ~/.config/configfiles/setup.sh
+#
+setup_symbolic_link() {
+	FILENAME=$1
+	[ ! -L ~/$FILENAME ] && mv ~/$FILENAME ~/$FILENAME.old
+	[ ! -f ~/$FILENAME ] && ln -s ~/.config/configfiles/$FILENAME ~/$FILENAME
+}
 
-[ ! -L ~/.bashrc ] && mv ~/.bashrc ~/.bashrc.old
-[ ! -f ~/.bashrc ] && ln -s ~/.config/configfiles/.bashrc ~/.bashrc
-[ ! -L ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.old
-[ ! -f ~/.zshrc ] && ln -s ~/.config/configfiles/.zshrc ~/.zshrc
-[ ! -f ~/.tmux.conf ] && ln -s ~/.config/configfiles/.tmux.conf ~/.tmux.conf
+setup_symbolic_link .bashrc
+setup_symbolic_link .zshrc
+setup_symbolic_link .tmux.conf
+[ ! -L ~/.config/starship.toml ] && mv ~/.config/starship.toml ~/.config/starship.toml.old
 [ ! -f ~/.config/starship.toml ] && ln -s ~/.config/configfiles/starship.toml ~/.config/starship.toml
 [ ! -d ~/.config/nvim ] && ln -s ~/.config/configfiles/nvim/ ~/.config/
-[ ! -f ~/.astylerc ] && ln -s ~/.config/configfiles/.astylerc ~/.astylerc
+setup_symbolic_link .astylerc
+
 sudo apt update
-# sudo apt install python3-neovim # Might no longer be needed, remove if everything below works
 
 # Install dependencies available through apt
 sudo apt install zsh gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential npm exa
