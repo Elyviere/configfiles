@@ -29,7 +29,7 @@ sudo apt update
 # sudo apt install python3-neovim # Might no longer be needed, remove if everything below works
 
 # Install dependencies available through apt
-sudo apt install zsh gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential npm
+sudo apt install zsh gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential npm exa
 
 #Set zsh as default shell
 chsh -s $(which zsh)
