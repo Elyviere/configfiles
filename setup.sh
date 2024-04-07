@@ -17,42 +17,80 @@
 # chmod u+x ~/.config/configfiles/setup.sh
 # sh ~/.config/configfiles/setup.sh
 
-ln -s ~/.config/configfiles/nvim/ ~/.config/
-mv ~/.bashrc ~/.bashrc.old
-ln -s ~/.config/configfiles/.bashrc ~/.bashrc
-ln -s ~/.config/configfiles/.zshrc ~/.zshrc
-ln -s ~/.config/configfiles/.astylerc ~/.astylerc
+[ ! -L ~/.bashrc ] && mv ~/.bashrc ~/.bashrc.old
+[ ! -f ~/.bashrc ] && ln -s ~/.config/configfiles/.bashrc ~/.bashrc
+[ ! -L ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.old
+[ ! -f ~/.zshrc ] && ln -s ~/.config/configfiles/.zshrc ~/.zshrc
+[ ! -f ~/.tmux.conf ] && ln -s ~/.config/configfiles/.tmux.conf ~/.tmux.conf
+[ ! -f ~/.config/starship.toml ] && ln -s ~/.config/configfiles/starship.toml ~/.config/starship.toml
+[ ! -d ~/.config/nvim ] && ln -s ~/.config/configfiles/nvim/ ~/.config/
+[ ! -f ~/.astylerc ] && ln -s ~/.config/configfiles/.astylerc ~/.astylerc
 sudo apt update
 # sudo apt install python3-neovim # Might no longer be needed, remove if everything below works
 
 # Install dependencies available through apt
-sudo apt install gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential
+sudo apt install zsh gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential npm
+
+#Set zsh as default shell
+chsh -s $(which zsh)
 
 # Install Linuxbrew for ripgrep and lazygit
 which brew
 if [[ $? != 0 ]]; then
 	echo 'Linuxbrew not installed, installing now'
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	# The following lines shouldn't be needed, as the line should already be present in .bashrc
-	# (
-	# 	echo
-	# 	echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-	# ) >>/home/elyviere/.bashrc
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-	sudo apt install build-essential
 else
 	echo 'Linuxbrew already installed, skipping installation'
 fi
-brew install ripgrep lazygit
+brew install ripgrep lazygit fzf
+
+if [ ! -d ~/.oh-my-zsh ]; then
+	echo 'OhMyZShell not installed, installing now'
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	mv ~/.zshrc ~/.zshrc.old
+	ln -s ~/.config/configfiles/.zshrc ~/.zshrc
+else
+	echo 'OhMyZShell already installed, skipping installation'
+fi
+
+which starship
+if [[ $? != 0 ]]; then
+	echo 'Starship not installed, installing now'
+	curl -sS https://starship.rs/install.sh | sh
+else
+	echo 'Starship already installed, skipping installation'
+fi
+
+which zoxide
+if [[ $? != 0 ]]; then
+	echo 'Zoxide not installed, installing now'
+	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+else
+	echo 'Zoxide already installed, skipping installation'
+fi
+
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+	echo 'Tmux tpm not present, cloning now'
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	tmux source ~/.tmux.conf
+else
+	echo 'Tmux tpm already present on system, skipping cloning'
+fi
 
 # Build & Install latest stable neovim
-git clone https://github.com/neovim/neovim ~/neovim
-cd ~/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
-git checkout stable
-sudo make install
-cd -
+which nvim
+if [[ $? != 0 ]]; then
+	git clone https://github.com/neovim/neovim ~/neovim
+	cd ~/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+	git checkout stable
+	sudo make install
+	cd -
+	git config --global core.editor "nvim"
+else
+	echo 'Neovim already installed, skipping installation'
+fi
 
-# Open neovim and make sure everything works
-git config --global core.editor "nvim"
-nvim
-# Do :checkhealth once everything is installed
+echo 'To complete setup, start tmux and install plugins with "C-b I", then open nvim and run ":checkhealth"'
+
+exec $SHELL

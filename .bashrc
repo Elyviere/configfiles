@@ -127,3 +127,5 @@ export PATH=$PATH:~/.local/bin
 
 # Adds `brew` command to terminal
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+alias kattisdir='cd /mnt/c/Users/Administrator/Documents/Kattis-test'
