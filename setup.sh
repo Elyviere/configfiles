@@ -27,6 +27,7 @@ ln -sfn ~/configfiles/.config ~/.config
 setup_symbolic_link .bashrc
 setup_symbolic_link .zshrc
 setup_symbolic_link .astylerc
+setup_symbolic_link .p10k.zsh
 
 sudo apt update
 
@@ -54,6 +55,27 @@ if [ ! -d ~/.oh-my-zsh ]; then
 	ln -s ~/configfiles/.oh-my-zsh/custom ~/.oh-my-zsh/custom
 else
 	echo 'OhMyZShell already installed, skipping installation'
+fi
+
+if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
+	echo 'zsh-syntax-highlighting not found, cloning now'
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+else
+	echo 'zsh-syntax-highlighting already installed, skipping installation'
+fi
+
+if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
+	echo 'zsh-autosuggestions not found, cloning now'
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+else
+	echo 'zsh-autosuggestions already installed, skipping installation'
+fi
+
+if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
+	echo 'powerlevel10k not found, cloning now'
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+else
+	echo 'powerlevel10k already installed, skipping installation'
 fi
 
 which starship
