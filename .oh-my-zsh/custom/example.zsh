@@ -5,8 +5,3 @@
 # - loaded automatically by the init script, in alphabetical order
 # - loaded last, after all built-ins in the lib/ directory, to override them
 # - ignored by git by default
-#
-# Example: add custom/shortcuts.zsh for shortcuts to your local projects
-#
-# brainstormr=~/Projects/development/planetargon/brainstormr
-# cd $brainstormr
