@@ -100,6 +100,7 @@ fi
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias nvimconfig="nvim ~/.config/nvim/lua/."
+alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
 alias sofle="tmux new-session -AD -s sofle" # Attaches to existing session if one exists
 
 # Installed programs

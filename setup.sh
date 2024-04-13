@@ -12,23 +12,20 @@
 
 # Clone the config repo
 #
-# mkdir ~/.config
-# git clone git@github.com:Elyviere/configfiles.git ~/.config/configfiles
-# chmod u+x ~/.config/configfiles/setup.sh
-# sh ~/.config/configfiles/setup.sh
+# git clone git@github.com:Elyviere/configfiles.git ~/configfiles
+# chmod u+x ~/configfiles/setup.sh
+# sh ~/configfiles/setup.sh
 #
 setup_symbolic_link() {
 	FILENAME=$1
 	[ ! -L ~/$FILENAME ] && mv ~/$FILENAME ~/$FILENAME.old
-	[ ! -f ~/$FILENAME ] && ln -s ~/.config/configfiles/$FILENAME ~/$FILENAME
+	ln -sf ~/configfiles/$FILENAME ~/$FILENAME
 }
 
+[ ! -L ~/.config ] && mv ~/.config ~/.config.old
+ln -sfn ~/configfiles/.config ~/.config
 setup_symbolic_link .bashrc
 setup_symbolic_link .zshrc
-setup_symbolic_link .tmux.conf
-[ ! -L ~/.config/starship.toml ] && mv ~/.config/starship.toml ~/.config/starship.toml.old
-[ ! -f ~/.config/starship.toml ] && ln -s ~/.config/configfiles/starship.toml ~/.config/starship.toml
-[ ! -d ~/.config/nvim ] && ln -s ~/.config/configfiles/nvim/ ~/.config/
 setup_symbolic_link .astylerc
 
 sudo apt update
@@ -52,9 +49,7 @@ brew install ripgrep lazygit fzf
 
 if [ ! -d ~/.oh-my-zsh ]; then
 	echo 'OhMyZShell not installed, installing now'
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	mv ~/.zshrc ~/.zshrc.old
-	ln -s ~/.config/configfiles/.zshrc ~/.zshrc
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
 else
 	echo 'OhMyZShell already installed, skipping installation'
 fi
@@ -75,10 +70,10 @@ else
 	echo 'Zoxide already installed, skipping installation'
 fi
 
-if [ ! -d ~/.tmux/plugins/tpm ]; then
+if [ ! -d ~/.config/tmux/plugins/tpm ]; then
 	echo 'Tmux tpm not present, cloning now'
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	tmux source ~/.tmux.conf
+	tmux source ~/.config/tmux/tmux.conf
 else
 	echo 'Tmux tpm already present on system, skipping cloning'
 fi
