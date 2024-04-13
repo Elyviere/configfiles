@@ -50,6 +50,8 @@ brew install ripgrep lazygit fzf
 if [ ! -d ~/.oh-my-zsh ]; then
 	echo 'OhMyZShell not installed, installing now'
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
+	rm -rf ~/.oh-my-zsh/custom/
+	ln -s ~/configfiles/.oh-my-zsh/custom ~/.oh-my-zsh/custom
 else
 	echo 'OhMyZShell already installed, skipping installation'
 fi
@@ -72,7 +74,7 @@ fi
 
 if [ ! -d ~/.config/tmux/plugins/tpm ]; then
 	echo 'Tmux tpm not present, cloning now'
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 	tmux source ~/.config/tmux/tmux.conf
 else
 	echo 'Tmux tpm already present on system, skipping cloning'
