@@ -5,11 +5,11 @@
 # ssh-add ~/.ssh/id_ed25519
 #
 # Clone the config repo
-# git clone git@github.com:Elyviere/configfiles.git ~/configfiles
-# chmod u+x ~/configfiles/setup.sh
-# sh ~/configfiles/setup.sh
+# git clone git@github.com:Elyviere/dotfiles.git ~/dotfiles
+# chmod u+x ~/dotfiles/setup.sh
+# sh ~/dotfiles/setup.sh
 
-dotfiles_dir="$HOME/configfiles"
+dotfiles_dir="$HOME/dotfiles"
 
 setup_symbolic_link() {
 	FILENAME=$1
@@ -115,7 +115,7 @@ install_dependencies
 chsh -s $(which zsh)
 
 install_linuxbrew
-brew --quiet install ripgrep lazygit fzf
+brew install --quiet ripgrep lazygit fzf
 install_ohmyzsh
 install_zsh-syntax-highlighting
 install_zsh-autosuggestions
