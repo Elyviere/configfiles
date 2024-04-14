@@ -1,1 +1,1 @@
-Just some personal configfiles for Linux and some other applications
+Just some personal dotfiles for Linux and some other applications
