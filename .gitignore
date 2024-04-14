@@ -1,8 +1,8 @@
 .config/nvim/lazy-lock.json
-
 .config/tmux/plugins/**
-
 .oh-my-zsh/custom/**
-!.oh-my-zsh/custom/projects/example.zsh
+
+!.oh-my-zsh/custom/example.zsh
+!.oh-my-zsh/custom/**/example.zsh
 !.oh-my-zsh/custom/aliases/*
 
