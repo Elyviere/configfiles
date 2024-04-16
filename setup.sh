@@ -10,6 +10,8 @@
 # sh ~/dotfiles/setup.sh
 
 dotfiles_dir="$HOME/dotfiles"
+ohmyzsh_dir="$HOME/.config/.oh-my-zsh"
+zshcustom_dir="$dotfiles_dir/.oh-my-zsh/custom"
 
 setup_symbolic_link() {
 	FILENAME=$1
@@ -19,7 +21,7 @@ setup_symbolic_link() {
 
 install_dependencies() {
 	sudo apt update -q
-	sudo apt install -qy zsh gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential npm exa
+	sudo apt install -qy zsh gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential npm exa openjdk-21-jdk-headless
 }
 
 install_linuxbrew() {
@@ -33,19 +35,21 @@ install_linuxbrew() {
 }
 
 install_ohmyzsh() {
-	if [ ! -d $HOME/.oh-my-zsh ]; then
+	if [ ! -d $ohmyzsh_dir ]; then
 		echo 'OhMyZShell not installed, installing now'
+		export ZSH=$ohmyzsh_dir
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc --unattended
-		export ZSH_CUSTOM=$dotfiles_dir/.oh-my-zsh/custom
 	else
 		echo 'OhMyZShell already installed, skipping installation'
 	fi
+
+	export ZSH_CUSTOM=$zshcustom_dir
 }
 
 install_zsh-syntax-highlighting() {
 	if [ ! -d $ZSH_CUSTOM/plugins/zsh-syntax-highlighting ]; then
 		echo 'zsh-syntax-highlighting not found, cloning now'
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$ohmyzsh_dir/custom}/plugins/zsh-syntax-highlighting
 	else
 		echo 'zsh-syntax-highlighting already installed, skipping installation'
 	fi
@@ -54,7 +58,7 @@ install_zsh-syntax-highlighting() {
 install_zsh-autosuggestions() {
 	if [ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ]; then
 		echo 'zsh-autosuggestions not found, cloning now'
-		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$ohmyzsh_dir/custom}/plugins/zsh-autosuggestions
 	else
 		echo 'zsh-autosuggestions already installed, skipping installation'
 	fi
@@ -63,7 +67,7 @@ install_zsh-autosuggestions() {
 install_powerlevel10k() {
 	if [ ! -d $ZSH_CUSTOM/themes/powerlevel10k ]; then
 		echo 'powerlevel10k not found, cloning now'
-		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$ohmyzsh_dir/custom}/themes/powerlevel10k
 	else
 		echo 'powerlevel10k already installed, skipping installation'
 	fi
