@@ -115,7 +115,7 @@ install_dependencies
 chsh -s $(which zsh)
 
 install_linuxbrew
-brew install --quiet ripgrep lazygit fzf
+brew install --quiet ripgrep lazygit fzf thefuck
 install_ohmyzsh
 install_zsh-syntax-highlighting
 install_zsh-autosuggestions
