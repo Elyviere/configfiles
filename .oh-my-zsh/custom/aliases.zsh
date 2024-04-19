@@ -7,7 +7,7 @@ alias ls='exa'
 alias lsa='exa -lah'
 
 # Use z over ls
-alias cd='z'
+# alias cd='z'
 
 # Config file shortcuts (pre-existing as comments)
 # zshrc
