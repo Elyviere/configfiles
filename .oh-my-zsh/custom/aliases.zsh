@@ -12,6 +12,7 @@ alias lsa='exa -lah'
 # Config file shortcuts (pre-existing as comments)
 # zshrc
 # tmuxconf
+alias zshenv='$EDITOR ~/.zshenv'
 alias ohmyzsh='$EDITOR ~/.oh-my-zsh'
 alias zshcustomconf='$EDITOR $ZSH_CUSTOM'
 alias nvimconf='$EDITOR ~/.config/nvim/lua/.'
