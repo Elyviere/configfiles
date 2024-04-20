@@ -80,6 +80,12 @@ ZOXIDE_CMD_OVERRIDE=cd
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(common-aliases git zsh-autosuggestions zsh-syntax-highlighting tmux docker-compose history man mvn spring thefuck tmuxinator ubuntu vi-mode web-search zoxide)
 
+# Installed programs
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
+eval "$(fzf --zsh)"
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -98,12 +104,6 @@ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# Installed programs
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
-eval "$(fzf --zsh)"
 
 CORRECT_IGNORE_FILE="config"
 
