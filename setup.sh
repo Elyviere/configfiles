@@ -21,7 +21,7 @@ setup_symbolic_link() {
 
 install_dependencies() {
 	sudo apt update -q
-	sudo apt install -qy zsh gcc g++ fd-find ninja-build gettext cmake unzip curl build-essential npm exa openjdk-21-jdk-headless
+	sudo apt install -qy zsh gcc g++ fd-find fzf ninja-build gettext cmake unzip curl build-essential npm exa openjdk-21-jdk-headless thefuck ripgrep
 }
 
 install_linuxbrew() {
@@ -101,19 +101,6 @@ install_tpm() {
 	fi
 }
 
-install_nvim() {
-	if ! which nvim &>/dev/null; then
-		git clone https://github.com/neovim/neovim ~/neovim
-		cd ~/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
-		git checkout stable
-		sudo make install
-		cd -
-		git config --global core.editor "nvim"
-	else
-		echo 'Neovim already installed, skipping installation'
-	fi
-}
-
 [ ! -L ~/.config ] && mv ~/.config ~/.config.old
 ln -sfn $dotfiles_dir/.config ~/.config
 setup_symbolic_link .bashrc
@@ -128,7 +115,7 @@ install_dependencies
 chsh -s $(which zsh)
 
 install_linuxbrew
-brew install --quiet ripgrep lazygit fzf thefuck
+brew install --quiet lazygit neovim
 install_ohmyzsh
 install_zsh-syntax-highlighting
 install_zsh-autosuggestions
@@ -136,7 +123,6 @@ install_powerlevel10k
 install_zoxide
 install exazsh
 install_tpm
-install_nvim
 
 echo 'To complete setup, start tmux and install plugins with "C-b I", then open nvim and run ":checkhealth"'
 
