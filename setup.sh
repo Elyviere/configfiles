@@ -82,6 +82,15 @@ install_zoxide() {
 	fi
 }
 
+install_exazsh() {
+	if [[ ! -d $ZSH_CUSTOM/plugins/exa-zsh ]]; then
+		echo 'exa-zsh not found, cloning now'
+		git clone https://github.com/MohamedElashri/exa-zsh ${ZSH_CUSTOM:-$ohmyzsh_dir/custom}/plugins/exa-zsh
+	else
+		echo 'exa-zsh already installed, skipping installation'
+	fi
+}
+
 install_tpm() {
 	if [ ! -d $HOME/.config/tmux/plugins/tpm ]; then
 		echo 'Tmux tpm not present, cloning now'
@@ -125,6 +134,7 @@ install_zsh-syntax-highlighting
 install_zsh-autosuggestions
 install_powerlevel10k
 install_zoxide
+install exazsh
 install_tpm
 install_nvim
 
