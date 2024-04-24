@@ -82,8 +82,8 @@ install_zoxide() {
 	fi
 }
 
-install_exazsh() {
-	if [[ ! -d $ZSH_CUSTOM/plugins/exa-zsh ]]; then
+install_exa-zsh() {
+	if [ ! -d $ZSH_CUSTOM/plugins/exa-zsh ]; then
 		echo 'exa-zsh not found, cloning now'
 		git clone https://github.com/MohamedElashri/exa-zsh ${ZSH_CUSTOM:-$ohmyzsh_dir/custom}/plugins/exa-zsh
 	else
@@ -121,7 +121,7 @@ install_zsh-syntax-highlighting
 install_zsh-autosuggestions
 install_powerlevel10k
 install_zoxide
-install exazsh
+install exa-zsh
 install_tpm
 
 echo 'To complete setup, start tmux and install plugins with "C-b I", then open nvim and run ":checkhealth"'
