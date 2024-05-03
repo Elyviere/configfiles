@@ -8,7 +8,7 @@ return {
       suggestion = {
         auto_trigger = true,
         keymap = {
-          accept = "<CR>",
+          accept = "<C-l>",
           next = "<M-]>",
           prev = "<M-[>",
           dismiss = "<M-d>",
@@ -18,40 +18,12 @@ return {
   end,
   keys = {
     {
-      "<leader>Cv",
+      "<leader>Cp",
       function()
-        require("copilot.suggestion").is_visible()
+        require("copilot.panel").open({})
       end,
-      desc = "Is visible",
+      desc = "Open panel",
     },
-    -- {
-    --   "<leader>Ca",
-    --   function()
-    --     require("copilot.suggestion").accept_word()
-    --   end,
-    --   desc = "Accept word",
-    -- },
-    -- {
-    --   "<leader>CA",
-    --   function()
-    --     require("copilot.suggestion").accept_line()
-    --   end,
-    --   desc = "Accept line",
-    -- },
-    -- {
-    --   "<leader>Cn",
-    --   function()
-    --     require("copilot.suggestion").next()
-    --   end,
-    --   desc = "Next",
-    -- },
-    -- {
-    --   "<leader>Cp",
-    --   function()
-    --     require("copilot.suggestion").prev()
-    --   end,
-    --   desc = "Previous",
-    -- },
     {
       "<leader>Ct",
       function()
