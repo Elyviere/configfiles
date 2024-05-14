@@ -78,7 +78,26 @@ ZOXIDE_CMD_OVERRIDE=cd
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(common-aliases git zsh-autosuggestions zsh-syntax-highlighting tmux docker-compose history man mvn spring thefuck tmuxinator ubuntu vi-mode web-search zoxide exa-zsh)
+plugins=(
+common-aliases
+docker-compose
+exa-zsh
+git
+history
+kubectl
+man
+mvn
+spring
+thefuck
+tmux
+tmuxinator
+ubuntu
+vi-mode
+web-search
+zoxide
+zsh-autosuggestions
+zsh-syntax-highlighting
+)
 
 # Installed programs
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

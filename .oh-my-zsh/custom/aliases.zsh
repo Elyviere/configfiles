@@ -11,3 +11,6 @@ alias aliases='$EDITOR $ZSH_CUSTOM/aliases.zsh'
 # Easy access tmux sessions
 alias sofle="tmux new-session -AD -s sofle" # Attaches to existing session if one exists
 alias dotfiles="tmux new-session -AD -s dotfiles"
+
+# Stop zsh from correcting 'config' to '.config'
+alias config="nocorrect config"
